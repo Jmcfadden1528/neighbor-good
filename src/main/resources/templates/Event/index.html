@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body>
+
+
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="${title}">Default Title</h1>
+
+
+
+<p th:unless="${events} and ${events.size()}">No events :(</p>
+
+<table class="table">
+
+    <tr>
+        <th scope="col">Name</th>
+        <th>Date</th>
+        <th>View Details</th>
+
+    </tr>
+
+    <tr th:each="event : ${events}">
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.date}"></td>
+        <td><a th:href="@{'/event/event-view/' + ${event.id}}">View Details</a></td>
+
+    </tr>
+
+</table>
+
+
+</body>
+</html>

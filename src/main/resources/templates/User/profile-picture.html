@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+
+
+<h1 th:text="${title}">Default Title</h1>
+
+
+
+<form action="profile-picture-updated" th:object="${user}" method="get">
+    <div class="form-group">
+        <label th:for="imageUrl">Link image to URL: </label>
+        <input type="text" th:field="*{profilePictureUrl}" name="profilePictureUrl"/>
+    </div>
+    <input type="submit" value="Add" />
+</form>
+
+
+
+
+</body>
+</html>

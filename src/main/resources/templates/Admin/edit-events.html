@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<br/>
+<table>
+    <tr>
+        <td><a href="/admin/edit-users">Edit Users</a></td>
+        <td>    |    </td>
+        <td><a style="inline" href="/admin/edit-events">Edit Events</a></td>
+    </tr>
+</table>
+
+<form action="remove-event" method="post">
+
+    <div th:each="event : ${events}" class="checkbox">
+        <input type="checkbox" name="ids" th:value="${event.id}" th:id="${event.id}"/>
+        <label th:for="${event.id}" th:text="${event.name}"></label>
+        <br />
+    </div>
+
+    <input type="submit" value="Remove from events" />
+</form>
+
+</body>
+</html>

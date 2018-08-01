@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="${theEvent.name}"></h1>
+<div class="table">
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Time</th>
+        <th>Description</th>
+    </tr>
+
+    <tr>
+        <td th:text="${#dates.format(theEvent.date, 'dd-MM-yyyy')}"></td>
+        <td th:text="${theEvent.address.streetAddress}"></td>
+        <td th:text="${theEvent.time}"></td>
+        <td th:text="${theEvent.description}"></td>
+        <td><a th:href="@{'/event/event-added/' + ${theEvent.id}}">Attend event</a></td>
+    </tr>
+</table>
+</div>
+
+<hr/>
+
+<a th:href="@{'/event/google-maps/' + ${theEvent.id}}">See a Map</a>
+
+<p class="error" th:text="${duplicate_event_error}"></p>
+
+<img th:src="${theEvent.imageUrl}" alt="No Image" max-height="300" max-width="300"/>
+
+
+
+<div class="container">
+<h3 th:text="'Neighbors attending' + ' - ' +${num_of_ppl}"></h3>
+    <table>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstname} + ' ' + ${user.lastname} + '     '"></td>
+            <td><img th:src="${user.profilePictureUrl}" height="50" width="50" alt="No Image" /></td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
+

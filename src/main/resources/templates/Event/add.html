@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="${title}">Default Title</h1>
+
+
+<div class="form-group" id="form-indent">
+    <form method="post" th:object="${event}">
+        <div class="form-group" width="600px">
+            <label th:for="name">Title of event: </label>
+            <input th:field="*{name}" />
+            <span th:errors="*{name}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label th:for="date">Date of event: </label>
+            <input type="date" th:field="*{date}" />
+            <span th:errors="*{date}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label th:for="time">Start time of event (hh:mm:ss): </label>
+            <input th:field="*{time}" />
+             <span th:errors="*{time}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label th:for="description">Description: </label>
+            <input th:field="*{description}" />
+            <span th:errors="*{description}" class="errors"></span>
+        </div>
+
+        <div class="form-group">
+            <label th:for="address.streetAddress">Address of event: </label>
+            <input  th:field="*{address.streetAddress}" />
+            <span th:errors="*{address}" class="error"></span>
+        </div>
+        <div class="form-group">
+            <label th:for="address.zipCode">Zip Code: </label>
+            <input  th:field="*{address.zipCode}" />
+            <span th:errors="*{address}" class="error"></span>
+        </div>
+
+        <div class="form-group">
+            <label th:for="latitude">Latitude: </label>
+            <input  th:field="*{latitude}" />
+            <span th:errors="*{latitude}" class="error"></span>
+        </div>
+
+        <div class="form-group">
+            <label th:for="longitude">Longitude: </label>
+            <input th:field="*{longitude}" />
+            <span th:errors="*{longitude}" class="errors"></span>
+        </div>
+
+        <div class="form-group">
+            <label th:for="imageUrl">Link image to URL: </label>
+            <input type="text" th:field="*{imageUrl}" name="imageUrl"/>
+        </div>
+
+        <input type="submit" value="Add Event" />
+    </form>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#form1").hide(300).show(2000);
+    });
+
+</script>
+
+
+
+</body>
+</html>
