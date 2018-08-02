@@ -1,5 +1,6 @@
 package org.launchcode.capstoneprojectjm.models;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -16,10 +17,12 @@ public class Address {
     @GeneratedValue
     private int address_id = 1;
 
+    @NotBlank(message = "field cannot be left blank")
     private String streetAddress;
 
     private String city;
 
+    @NotBlank(message = "field cannot be left blank")
     private String zipCode;
 
     private String country;

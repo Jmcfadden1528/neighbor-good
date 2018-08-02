@@ -43,13 +43,12 @@ public class UserController {
                                     Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("user", newUser);
-            model.addAttribute("generic_error", "field cannot be left blank");
+            model.addAttribute("errors", errors);
             model.addAttribute("title", "Sign Up");
 
-//            if (!newUser.getPassword().equals(verify)) {
-//
-//                model.addAttribute("message", "Your passwords don't match.");
-//            }
+            if (newUser.getPassword().equals(verify) != true) {
+                model.addAttribute("dontMatchError", "Your passwords don't match.");
+            }
 
             return "user/sign-up";
         }

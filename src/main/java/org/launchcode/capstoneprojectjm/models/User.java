@@ -31,6 +31,7 @@ public class User {
     @Size(min = 1, message = "Last name cannot be left blank")
     private String lastname;
 
+    //TODO: get form to throw an error when passwords don't match.  Currently only does it if is left blank.
     @NotNull
     @Size(min = 5, message = "Password must be at least 5 characters and must match")
     private String password;

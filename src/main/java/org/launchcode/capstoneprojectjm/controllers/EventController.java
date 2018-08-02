@@ -1,6 +1,7 @@
 package org.launchcode.capstoneprojectjm.controllers;
 
 import org.apache.tomcat.jni.Local;
+import org.launchcode.capstoneprojectjm.models.Address;
 import org.launchcode.capstoneprojectjm.models.Data.AddressDao;
 import org.launchcode.capstoneprojectjm.models.Data.EventDao;
 import org.launchcode.capstoneprojectjm.models.Data.UserDao;
@@ -68,6 +69,7 @@ public class EventController {
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("title", "Add Event");
         model.addAttribute(new Event());
+        model.addAttribute(new Address());
         return "event/add";
     }
 
@@ -79,11 +81,25 @@ public class EventController {
             return "redirect:/user/login";
         }
         if (errors.hasErrors()) {
+
             List<User> u = userDao.findByUsername(username);
             User currentUser = u.get(0);
             model.addAttribute("currentUser", currentUser);
             model.addAttribute("title", "Add Event");
             model.addAttribute("event", newEvent);
+            model.addAttribute("errors", errors);
+            if (newEvent.getDate() == null) {
+                model.addAttribute("dateError", "field cannot be left blank");
+            }
+            if (newEvent.getTime() == null || newEvent.getTime().equals("")) {
+                model.addAttribute("timeError", "field cannot be left blank");
+            }
+            if (newEvent.getAddress().getStreetAddress() == null || newEvent.getAddress().getStreetAddress().equals("")) {
+                model.addAttribute("streetError", "field cannot be left blank");
+            }
+            if (newEvent.getAddress().getZipCode() == null || newEvent.getAddress().getZipCode().equals("")) {
+                model.addAttribute("zipError", "field cannot be left blank");
+            }
             return "event/add";
         }
 

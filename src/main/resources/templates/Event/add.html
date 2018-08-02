@@ -17,13 +17,13 @@
         </div>
         <div class="form-group">
             <label th:for="date">Date of event: </label>
-            <input type="date" th:field="*{date}" />
-            <span th:errors="*{date}" class="error"></span>
+            <input type="date" th:field="*{date}"/>
+            <span th:if="${errors}" th:text="${dateError}" class="error"></span>
         </div>
         <div class="form-group">
             <label th:for="time">Start time of event (hh:mm:ss): </label>
             <input th:field="*{time}" />
-             <span th:errors="*{time}" class="error"></span>
+             <span th:if="${errors}" th:text="${timeError}" class="error"></span>
         </div>
         <div class="form-group">
             <label th:for="description">Description: </label>
@@ -34,12 +34,12 @@
         <div class="form-group">
             <label th:for="address.streetAddress">Address of event: </label>
             <input  th:field="*{address.streetAddress}" />
-            <span th:errors="*{address}" class="error"></span>
+            <span th:if="${errors}" th:text="${streetError}" class="error"></span>
         </div>
         <div class="form-group">
             <label th:for="address.zipCode">Zip Code: </label>
             <input  th:field="*{address.zipCode}" />
-            <span th:errors="*{address}" class="error"></span>
+            <span th:if="${errors}" th:text="${zipError}" class="error"></span>
         </div>
 
         <div class="form-group">
