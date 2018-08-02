@@ -167,8 +167,6 @@ public class UserController {
         model.addAttribute("currentUser", currentUser);
 
 
-
-
         return "event/my-events";
 
     }

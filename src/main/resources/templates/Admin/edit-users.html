@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body>
 
 <h1 th:text="${title}">Default Title</h1>
 
@@ -9,22 +9,29 @@
 
 <hr/>
 
+<table class="table">
+    <tr>
+        <td><a href="/admin/edit-users">Edit Users</a></td>
+    </tr>
+    <tr>
+        <td><a style="inline" href="/admin/edit-events">Edit Events</a></td>
+    </tr>
+</table>
+
 <table cellpadding="35">
 <tr>
-    <th><h3>Select User to Add to Admin Role</h3></th>
-    <th><h3>Select User to Remove from Admin Role</h3></th>
+    <th><h3>Add to Admin Role</h3></th>
+    <th><h3>Remove from Admin Role</h3></th>
 </tr>
 <tr>
     <td>
-    <form action="add-admin" method="post">
+    <form action="add-admin" method="post" class="checkbox">
 
-    <div th:each="user : ${users}" class="checkbox">
-        <input type="checkbox" name="ids" th:value="${user.id}" th:id="${user.id}"/>
-        <label th:for="${user.id}" th:text="${user.Username}"></label>
-        <br />
-    </div>
-
-    <input type="submit" value="Update Users" />
+        <ul th:each="user : ${users}">
+            <input type="checkbox" name="ids" th:value="${user.id}" th:id="${user.id}"/>
+            <label th:for="${user.id}" th:text="${user.Username}"></label>
+        </ul>
+            <input type="submit" value="Update Users" />
     </form>
     </td>
 
@@ -32,11 +39,11 @@
 <td>
     <form action="remove-admin" method="post">
 
-    <div th:each="adminUser : ${adminUsers}" class="checkbox">
+    <ul th:each="adminUser : ${adminUsers}" class="checkbox">
         <input type="checkbox" name="ids" th:value="${adminUser.id}" th:id="${adminUser.id}"/>
         <label th:for="${adminUser.id}" th:text="${adminUser.Username}"></label>
         <br />
-    </div>
+    </ul>
 
     <input type="submit" value="Update Users" />
     </form>
