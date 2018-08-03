@@ -1,49 +1,74 @@
 <!DOCTYPE html>
-<html  lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
+    <title>Geocoding Service</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
     <style>
-       /* Set the size of the div element that contains the map */
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
       #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
     </style>
-
-
-
 </head>
 <body>
-<h3 th:text="${title}">My Google Maps Demo</h3>
-<!--The div element for the map -->
-<script th:inline="javascript">
-
-// Initialize and add the map
-function initMap() {
-  // The location
-
-  var latlng = {lat: [[${latitude}]], lng: [[${longitude}]]}
-  console.log(latlng);
-
-  // The map, centered at
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: latlng});
-  // The marker, positioned at
-  var marker = new google.maps.Marker({position: latlng, map: map});
-}
-
-    </script>
-<!--Load the API from the specified URL
-* The async attribute allows the browser to render the page while the API loads
-* The key parameter will contain your own API key (which is not needed for this tutorial)
-* The callback parameter executes the initMap() function
--->
-
+<div id="floating-panel">
+    <input id="address" type="textbox" th:value="${address}" />
+    <input id="submit" type="button" value="Find on Map" />
+</div>
 <div id="map"></div>
+<script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: {lat: -34.397, lng: 150.644}
+        });
+        var geocoder = new google.maps.Geocoder();
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCP3TtYXkTDRYEXa1DGLQ4e3w0hGW0UkXY&amp;callback=initMap"
-        ></script>
+        window.onload = function() {geocodeAddress(geocoder, map)};
 
-<p th:text="${latitude} + ' , ' + ${longitude}"></p>
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+      }
 
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('address').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCP3TtYXkTDRYEXa1DGLQ4e3w0hGW0UkXY&amp;callback=initMap">
+</script>
 </body>
 </html>

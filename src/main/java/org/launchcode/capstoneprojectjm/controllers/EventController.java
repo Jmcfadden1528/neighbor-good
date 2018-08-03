@@ -46,6 +46,18 @@ public class EventController {
         Iterable<Event> events = eventDao.findAll();
         List<User> u = userDao.findByUsername(username);
         User currentUser = u.get(0);
+
+        LocalDate todaysDate = LocalDate.now();
+        for (Event theEvent : eventDao.findAll()) {
+            if (todaysDate.isAfter(theEvent.getDate().toLocalDate())) {
+                List<User> usersAttending = theEvent.getUsers();
+                for (User users : theEvent.getUsers()) {
+                    users.removeFromEvent(theEvent);
+                }
+                eventDao.delete(theEvent);
+            }
+        }
+
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("events", events);
         model.addAttribute("title", "All Events");
@@ -120,12 +132,6 @@ public class EventController {
         }
         Event theEvent = eventDao.findOne(id);
         List<User> usersAttending = theEvent.getUsers();
-        LocalDate todaysDate = LocalDate.now();
-        if (todaysDate.isAfter(theEvent.getDate().toLocalDate())) {
-            eventDao.delete(id);
-            return "event/event-has-passed";
-        }
-
 
         List<User> u = userDao.findByUsername(username);
         User currentUser = u.get(0);
@@ -215,14 +221,10 @@ public class EventController {
         }
 
         Event theEvent = eventDao.findOne(id);
-        double latitude = theEvent.getLatitude();
-        double longitude = theEvent.getLongitude();
-        model.addAttribute("latitude", latitude);
-        model.addAttribute("longitude", longitude);
+        String address = theEvent.getAddress().getStreetAddress() + " " + theEvent.getAddress().getCity();
         User u = userDao.findByUsername(username).get(0);
         model.addAttribute("currentUser", u);
-        model.addAttribute("title", "Big ol' map");
-        model.addAttribute("latlng", "{lat:" + -25.344 + "," + "lng:" + 131.036 + "}");
+        model.addAttribute("address", address);
 
 
         return "event/google-maps";
