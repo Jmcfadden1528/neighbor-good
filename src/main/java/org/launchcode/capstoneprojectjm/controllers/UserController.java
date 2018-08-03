@@ -49,6 +49,16 @@ public class UserController {
             if (newUser.getPassword().equals(verify) != true) {
                 model.addAttribute("dontMatchError", "Your passwords don't match.");
             }
+            if (newUser.getAddress().getStreetAddress() == null | newUser.getAddress().getStreetAddress().equals("")){
+                model.addAttribute("genericError", "field cannot be blank");
+            }
+            if (newUser.getAddress().getCity() == null | newUser.getAddress().getCity().equals("")){
+                model.addAttribute("genericError", "field cannot be blank");
+            }
+            if (newUser.getAddress().getZipCode() == null | newUser.getAddress().getZipCode().equals("")){
+                model.addAttribute("genericError", "field cannot be blank");
+            }
+
 
             return "user/sign-up";
         }

@@ -42,17 +42,17 @@
     <div class="form-group">
         <label th:for="address.streetAddress">Street Address: </label>
         <input th:field="*{address.streetAddress}" />
-        <span th:if="${#fields.hasErrors('global')}" th:text="${generic_error}"></span>
+        <span th:if="${errors}" th:text="${genericError}" class="error"></span>
     </div>
     <div class="form-group">
-    <label th:for="address.city">City: </label>
-    <input th:field="*{address.city}" />
-    <span th:errors="*{address.city}" class="error"></span>
+        <label th:for="address.city">City: </label>
+        <input th:field="*{address.city}" />
+        <span th:if="${errors}" th:text="${genericError}" class="error"></span>
     </div>
     <div class="form-group">
         <label th:for="address.zipCode">Zip Code: </label>
         <input th:field="*{address.zipCode}" />
-        <span th:errors="*{address.zipCode}" class="error"></span>
+        <span th:if="${errors}" th:text="${genericError}" class="error"></span>
     </div>
 
     <div class="form-group">
@@ -73,7 +73,7 @@
     <div class="form-group">
         <label for="verify">Verify:</label>
         <input id="verify" type="password" name="verify" />
-        <span th:if="${errors}" th:text="passwords don't match" class="errors"></span>
+        <span th:if="${errors}" text="passwords don't match" class="errors"></span>
         <span th:errors="*{password}" class="errors"></span>
 
     </div>
