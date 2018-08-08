@@ -14,7 +14,7 @@
 
 <p th:unless="${allUsers} and ${allUsers.size()}">You have no neighbors :(</p>
 
-<table class="table">
+<table class="table table-striped">
 
     <tr>
         <th scope="col">Name</th>
@@ -24,7 +24,7 @@
     </tr>
 
     <tr th:each="user : ${allUsers}">
-        <td th:text="${user.firstname} + ' ' + ${user.lastname} + ' -A.K.A: ' + ${user.username}"></td>
+        <td th:text="${user.firstname} + ' ' + ${user.lastname}"></td>
         <td><img th:src="${user.profilePictureUrl}" height="75" width="75" alt="no pic" /></td>
         <td><a th:href="@{'/user/profile/' + ${user.id}}">View Profile</a></td>
 

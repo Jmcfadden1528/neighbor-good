@@ -1,6 +1,7 @@
 nav {
     width: 100%;
-    border: 1px solid #555
+    border: 1px solid #555;
+    background-color: #a8a8a8;
 
 }
 
@@ -12,10 +13,10 @@ nav {
 }
 
 body {
-    color: #d80000;
-    background: #d5dae5;
-    font-family: Comic Sans MS;
-    font-style: oblique;
+    color: black;
+    background: white;
+    font-family: Arial;
+
 }
 
 #form-indent {
@@ -40,4 +41,9 @@ label {
     padding-top: 5px;
     text-align: right;
     width: 300px;
+}
+
+a {
+    color: black;
+    text-decoration: underline;
 }

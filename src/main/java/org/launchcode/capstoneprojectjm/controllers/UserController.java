@@ -213,6 +213,7 @@ public class UserController {
         Iterable<User> allUsers = userDao.findAll();
         model.addAttribute("allUsers", allUsers);
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("title", "My Neighbors");
         return "user/neighbors";
 
     }

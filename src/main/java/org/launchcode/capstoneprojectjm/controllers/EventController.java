@@ -178,6 +178,7 @@ public class EventController {
         model.addAttribute("currentUser", u);
         List<Event> userEvents = u.getEvents();
         model.addAttribute("events", userEvents);
+        model.addAttribute("title", "My Events");
 
 
         return "event/my-events";
